@@ -24,4 +24,5 @@ FROM
 WHERE
     region_rank <= 3
 ORDER BY
-    BTLR_ORG_LVL_C_DESC
+    BTLR_ORG_LVL_C_DESC,
+    region_rank DESC
