@@ -111,7 +111,7 @@ class Pipeline:
             .option("dataset", f"{DATABASE_NAME}") \
             .option("table", f"{TABLE_NAME}") \
             .save()
-        logging.info("SUCESS")
+        logging.info("SUCCESS")
         logging.info(f"Saved to {DATABASE_NAME}.{TABLE_NAME}")
 
     def ssot(self):
@@ -125,7 +125,7 @@ class Pipeline:
         params = {'project_id': PROJECT_ID,
                   'query': query}
         self.run_bq_query(**params)
-        logging.info("SUCESS")
+        logging.info("SUCCESS")
 
     def warehouse(self):
         logging.info("Running warehouse queries...")
@@ -144,7 +144,7 @@ class Pipeline:
                 }
                 logging.info(f"Running {file_name} ")
                 self.run_bq_query(**params)
-        logging.info("SUCESS")
+        logging.info("SUCCESS")
 
     def workflow(self, execution_date):
         logging.info("Starting the workflow...")
@@ -152,7 +152,7 @@ class Pipeline:
         self.ssot()
         self.warehouse()
         logging.info("Running Pipeline was a Success...")
-        logging.info("Shuting down the Spark...")
+        logging.info("Shuting down Spark...")
         self.spark.stop()
 
     def main(self):
