@@ -1,7 +1,7 @@
 
 # AB Inbev Sales Pipeline
 
-Consistis of a python class built with a workflow that translates the bussiness rules.
+Consists of a python class built with a workflow that translates the bussiness rules.
 
 ## Dependencies
 
