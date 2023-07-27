@@ -14,7 +14,10 @@ The CREDENTIALS constant represents a valid path to the credential keys:
 
 ```os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = CREDENTIALS```
 
-Other dependencies are the .jar files from the connectors used with Google Cloud Platform, if you want to run this locally i may provide those jars to your spark session. You can find these dependancies here: [Github](https://github.com/GoogleCloudDataproc)
+Other dependencies are the .jar files from the connectors used with Google Cloud Platform, if you want to run this locally i may provide those jars to your spark session. You can find these dependancies here: [Github](https://github.com/GoogleCloudDataproc). The needed jars bellow: 
+
+```>> spark-3.3-bigquery-0.32.0.jar```
+```>> gcs-connector-hadoop3-2.2.16-shaded.jar```
 
 To explicitly instantiate your dependacies on the spark session, add these options to it:
 
