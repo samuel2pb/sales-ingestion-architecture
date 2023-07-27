@@ -50,7 +50,7 @@ The workflow of the pipeline consists of the following methods:
 
 ![Data Model](img/Data%20Model.png)
 
-## Further Steps: 
+## Future Further Steps: 
 
 ### Architecture
 
