@@ -14,14 +14,15 @@ The CREDENTIALS constant represents a valid path to the credential keys:
 
 ```os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = CREDENTIALS```
 
-Other dependencies are the .jar files from the connectors used with Google Cloud Platform, if you want to run this locally i may provide those jars to your spark session. You can find these dependancies here: [Github|https://github.com/GoogleCloudDataproc]
+Other dependencies are the .jar files from the connectors used with Google Cloud Platform, if you want to run this locally i may provide those jars to your spark session. You can find these dependancies here: [Github](https://github.com/GoogleCloudDataproc)
 
 To explicitly instantiate your dependacies on the spark session, add these options to it:
 
-```.config("spark.jars",f"{JARS_PATH}/{BIG_QUERY_JAR},{JARS_PATH}/{GCS_JAR}") \```
-```.config("spark.hadoop.fs.gs.impl","com.google.cloud.hadoop.fs.gcs.GoogleHadoopFileSystem") \```
-```.config("spark.hadoop.google.cloud.auth.service.account.json.keyfile",CREDENTIALS) \```
-```.getOrCreate()```
+```.config("spark.jars",f"{JARS_PATH}/{BIG_QUERY_JAR},{JARS_PATH}/{GCS_JAR}") \
+.config("spark.hadoop.fs.gs.impl","com.google.cloud.hadoop.fs.gcs.GoogleHadoopFileSystem") \
+.config("spark.hadoop.google.cloud.auth.service.account.json.keyfile",CREDENTIALS) \
+.getOrCreate()
+```
 
 Remenber that all constants represents a valid path
 
@@ -31,15 +32,30 @@ To run this pipeline over Dataproc (GCP Managed Hadoop Service) just submit the 
 
 To do this locally you can run the command bellow: 
 
-````python3 main.py --logical-date YYYYMMDD``
+```python3 main.py --logical-date YYYYMMDD```
 
 The workflow of the pipeline consists of the following methods: 
 
 ```stage()```: Extract Raw data from Google Cloud Storage Bucket, merge (Sales and Channels) , apply treating transformations and persists Dataframe on temporary table on BigQuery.
+
 ```ssot()```: Run a MERGE statement query between Stage and Single Source of Truth, bringing UPDATES and INSERTS on BigQuery.
+
 ```warehouse()```: Run the Dimensions and Fact queries on BigQuery.
 
 ## Data Model:
 
+![Data Model](img/Data%20Model.png)
+
 ## Further Steps: 
 
+### Architecture
+
+![Arch](img/Arch.png)
+
+### Infrastructure as Code 
+
+![IaC](img/IaC.png)
+
+### CICD
+
+![CICD](img/CICD.png)
