@@ -11,7 +11,6 @@ from google.cloud import storage
 logging.basicConfig(level=logging.INFO,
                     format="%(asctime)s - %(levelname)s - %(message)s")
 
-# NOTE: The date is passed as an argument
 PROJECT_ID = 'retail-engine'
 CATALOG_NAME = 'catalog'
 DATABASE_NAME = 'abinbev'
@@ -19,29 +18,17 @@ TABLE_NAME = 'stage_sales'
 TMP_BUCKET = 'abinbev-tmp'
 RAW_BUCKET = 'abinbev-raw'
 ARTEFACTS_BUCKET = 'abinbev-artefacts'
-JARS_PATH = '/mnt/c/users/samuc/downloads'
-GCS_JAR = "gcs-connector-hadoop3-2.2.16-shaded.jar"
-BIG_QUERY_JAR = 'spark-3.3-bigquery-0.32.0.jar'
 SQL_PATH = "sql/"
-CREDENTIALS = "/mnt/e/reps/GCP/retail-engine-6d2031bd8b3b.json"
 
-os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = CREDENTIALS
 execution_date = None
 parser = argparse.ArgumentParser()
 parser.add_argument(
-    "--logical-date", help="Date of logical execution YYYYMMDD", required=True)
+    "--logical-date", help="Date of logical execution YYYYMMDD", required=False)  # NOTE: Has to be true on production
 
 
 class Pipeline:
     def __init__(self):
-        self.spark = SparkSession.builder.appName("Create stage") \
-            .config("spark.jars",
-                    f"{JARS_PATH}/{BIG_QUERY_JAR},{JARS_PATH}/{GCS_JAR}") \
-            .config("spark.hadoop.fs.gs.impl",
-                    "com.google.cloud.hadoop.fs.gcs.GoogleHadoopFileSystem") \
-            .config("spark.hadoop.google.cloud.auth.service.account.json.keyfile",
-                    CREDENTIALS) \
-            .getOrCreate()
+        self.spark = SparkSession.builder.appName("Create stage").getOrCreate()
 
     @staticmethod
     def normalize_string(s):
@@ -158,7 +145,8 @@ class Pipeline:
     def main(self):
         args = parser.parse_args()
         args_dict = vars(args)
-        execution_date = args_dict['logical_date']
+        # NOTE: Has to be true on production
+        execution_date = args_dict.get('logical_date', '20210726')
         self.workflow(execution_date)
 
 
