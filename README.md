@@ -1,5 +1,5 @@
 
-# AB Inbev Sales Pipeline
+# ABI Sales Pipeline
 
 Consists of a python class built with a workflow that translates the bussiness rules.
 
